@@ -20,6 +20,7 @@ import com.vitalii.komaniak.hacaton_app.di.Injection
 import com.vitalii.komaniak.hacaton_app.presentation.components.BottomNavigationBar
 import com.vitalii.komaniak.hacaton_app.presentation.components.ListComponent
 import com.vitalii.komaniak.hacaton_app.presentation.components.TopBar
+import com.vitalii.komaniak.hacaton_app.screens.collection.LoadingScreen
 import com.vitalii.komaniak.hacaton_app.ui.theme.AppTheme
 
 const val CONFIG_URL =
@@ -38,7 +39,11 @@ class MainActivity : ComponentActivity() {
         mainViewModel.loadConfig(configUrl = CONFIG_URL)
 
         setContent {
-            MainScreen()
+            if (true) {
+                LoadingScreen()
+            } else {
+                MainScreen()
+            }
         }
     }
 

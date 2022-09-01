@@ -1,4 +1,4 @@
-package com.vitalii.komaniak.hacaton_app.screens.home
+package com.vitalii.komaniak.hacaton_app.screens.collection
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -17,10 +17,10 @@ fun CollectionScreen(
     when (state.value) {
         is ViewState.Loading -> {
             LoadingScreen()
-            viewModel.onEvent(HomeCollectionsEvent.FetchCollection)
+            viewModel.onEvent(CollectionEvent.FetchCollection)
         }
         is ViewState.Success<*> -> {
-            HomeContentScreen(
+            CollectionContentScreen(
                 cardsList = (state.value as ViewState.Success<*>).value as List<CardModel>,
                 viewModel = viewModel,
                 cardClick = cardClick
@@ -33,7 +33,7 @@ fun CollectionScreen(
 }
 
 @Composable
-fun HomeContentScreen(
+fun CollectionContentScreen(
     cardsList: List<CardModel>,
     viewModel: CollectionViewModel,
     cardClick: (CardModel) -> Unit,

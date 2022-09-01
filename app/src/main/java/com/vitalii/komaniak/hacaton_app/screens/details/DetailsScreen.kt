@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vitalii.komaniak.hacaton_app.common.ViewState
 import com.vitalii.komaniak.hacaton_app.di.AppModule
-import com.vitalii.komaniak.hacaton_app.screens.home.LoadingScreen
+import com.vitalii.komaniak.hacaton_app.screens.collection.LoadingScreen
 
 @Composable
 fun DetailsScreen(viewModel: DetailsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = AppModule.getCollectionViewModelFactory()), onclick: () -> Unit) {

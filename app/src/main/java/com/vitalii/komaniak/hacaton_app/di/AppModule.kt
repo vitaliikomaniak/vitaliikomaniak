@@ -8,7 +8,7 @@ import com.vitalii.komaniak.domain.di.DomainModule
 import com.vitalii.komaniak.domain.usecase.LoadConfigUseCase
 import com.vitalii.komaniak.hacaton_app.main.MainViewModel
 import com.vitalii.komaniak.hacaton_app.screens.details.DetailsViewModel
-import com.vitalii.komaniak.hacaton_app.screens.home.CollectionViewModel
+import com.vitalii.komaniak.hacaton_app.screens.collection.CollectionViewModel
 
 object AppModule {
 

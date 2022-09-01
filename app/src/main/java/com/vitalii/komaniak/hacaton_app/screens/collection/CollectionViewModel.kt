@@ -1,4 +1,4 @@
-package com.vitalii.komaniak.hacaton_app.screens.home
+package com.vitalii.komaniak.hacaton_app.screens.collection
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -22,9 +22,9 @@ class CollectionViewModel : ViewModel() {
     private val _state = mutableStateOf(CardModel())
     val state: State<CardModel> = _state
 
-    fun onEvent(event: HomeCollectionsEvent) {
+    fun onEvent(event: CollectionEvent) {
         when (event) {
-            is HomeCollectionsEvent.FetchCollection -> loadData()
+            is CollectionEvent.FetchCollection -> loadData()
         }
     }
 

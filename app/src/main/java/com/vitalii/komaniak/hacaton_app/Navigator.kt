@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import com.vitalii.komaniak.hacaton_app.common.Screen
 import com.vitalii.komaniak.hacaton_app.screens.SplashScreen
 import com.vitalii.komaniak.hacaton_app.screens.details.DetailsScreen
-import com.vitalii.komaniak.hacaton_app.screens.home.CollectionScreen
+import com.vitalii.komaniak.hacaton_app.screens.collection.CollectionScreen
 
 @Composable
 fun SetupNavigationGraph(navController: NavHostController) {
