@@ -20,7 +20,7 @@ import com.vitalii.komaniak.hacaton_app.di.Injection
 import com.vitalii.komaniak.hacaton_app.presentation.components.BottomNavigationBar
 import com.vitalii.komaniak.hacaton_app.presentation.components.ListComponent
 import com.vitalii.komaniak.hacaton_app.presentation.components.TopBar
-import com.vitalii.komaniak.hacaton_app.ui.theme.AppForMillionTheme
+import com.vitalii.komaniak.hacaton_app.ui.theme.AppTheme
 
 const val CONFIG_URL =
     "https://gw.cds.amcn.com/config-cn/api/v1/amcplus-android-settings-ap/public/mobile/v2/content.json"
@@ -38,27 +38,32 @@ class MainActivity : ComponentActivity() {
         mainViewModel.loadConfig(configUrl = CONFIG_URL)
 
         setContent {
-            AppForMillionTheme {
-                val navController = rememberNavController()
-                SetupNavigationGraph(navController = navController)
-                var canPop by remember { mutableStateOf(false) }
-                navController.addOnDestinationChangedListener { controller, _, _ ->
-                    canPop = controller.previousBackStackEntry != null
-                }
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    backgroundColor = Color.White,
-                    topBar = {
-                        TopBar(
-                            title = resources.getString(R.string.app_name),
-                            canPop = canPop,
-                            iconClick = { navController.navigateUp() })
-                    },
-                    bottomBar = { BottomNavigationBar(navController = navController) },
-                ) {
-                    Box(modifier = Modifier.padding(10.dp)) {
-                        SetupNavigationGraph(navController = navController)
-                    }
+            MainScreen()
+        }
+    }
+
+    @Composable
+    private fun MainScreen() {
+        AppTheme {
+            val navController = rememberNavController()
+            SetupNavigationGraph(navController = navController)
+            var canPop by remember { mutableStateOf(false) }
+            navController.addOnDestinationChangedListener { controller, _, _ ->
+                canPop = controller.previousBackStackEntry != null
+            }
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                backgroundColor = Color.White,
+                topBar = {
+                    TopBar(
+                        title = resources.getString(R.string.app_name),
+                        canPop = canPop,
+                        iconClick = { navController.navigateUp() })
+                },
+                bottomBar = { BottomNavigationBar(navController = navController) },
+            ) {
+                Box(modifier = Modifier.padding(10.dp)) {
+                    SetupNavigationGraph(navController = navController)
                 }
             }
         }
@@ -68,7 +73,7 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    AppForMillionTheme {
+    AppTheme {
         ListComponent(cards = emptyList(), itemClick = {
             //no-op
         })
