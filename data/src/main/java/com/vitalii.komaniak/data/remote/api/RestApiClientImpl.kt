@@ -52,8 +52,34 @@ class RestApiClientImpl : RestHttpClient {
         return response.bodyAsText()
     }
 
-    override suspend fun post(url: String, requestBody: Map<String, Any>): HttpResponse {
+    override suspend fun get(url: String, headers: Map<String, String>): String {
+        val response = client.get(url) {
+            headers {
+                headers.forEach {
+                    append(it.key, it.value)
+                }
+            }
+        }
+        return response.bodyAsText()
+    }
+
+    override suspend fun post(url: String, requestBody: Map<String, Any>): String {
         return client.post(url) {
+            setBody(requestBody)
+        }.bodyAsText()
+    }
+
+    override suspend fun post(
+        url: String,
+        headers: Map<String, String>,
+        requestBody: Map<String, Any>,
+    ): HttpResponse {
+        return client.post(url) {
+            headers {
+                headers.forEach {
+                    append(it.key, it.value)
+                }
+            }
             setBody(requestBody)
         }
     }

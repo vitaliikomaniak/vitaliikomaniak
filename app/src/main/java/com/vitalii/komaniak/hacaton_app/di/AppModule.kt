@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.vitalii.komaniak.data.di.DataModule
-import com.vitalii.komaniak.domain.DomainModule
+import com.vitalii.komaniak.domain.di.DomainModule
 import com.vitalii.komaniak.domain.usecase.LoadConfigUseCase
 import com.vitalii.komaniak.hacaton_app.main.MainViewModel
 import com.vitalii.komaniak.hacaton_app.screens.details.DetailsViewModel

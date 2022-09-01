@@ -1,8 +1,9 @@
 package com.vitalii.komaniak.data.remote.repository
 
+import com.vitalii.komaniak.data.remote.AccessTokenDataSource
 import com.vitalii.komaniak.domain.repository.AccessTokenRepository
 
-class AccessTokenRepositoryImpl: AccessTokenRepository {
+class AccessTokenRepositoryImpl(private val accessTokenDataSource: AccessTokenDataSource): AccessTokenRepository {
 
     override suspend fun requestToken(accessTokenUrl: String) {
     }
@@ -17,6 +18,7 @@ class AccessTokenRepositoryImpl: AccessTokenRepository {
     }
 
     override suspend fun refreshToken(accessTokenUrl: String) {
+        val refreshTokenResponse = accessTokenDataSource.refreshToken()
     }
 
     override suspend fun clearToken() {
