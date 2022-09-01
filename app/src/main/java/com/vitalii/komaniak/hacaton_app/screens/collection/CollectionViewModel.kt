@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vitalii.komaniak.entities.CardModel
-import com.vitalii.komaniak.hacaton_app.common.ViewState
+import com.vitalii.komaniak.hacaton_app.presentation.entities.CardModel
+import com.vitalii.komaniak.hacaton_app.states.ViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

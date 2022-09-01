@@ -2,7 +2,7 @@ package com.vitalii.komaniak.hacaton_app.screens.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vitalii.komaniak.hacaton_app.common.ViewState
+import com.vitalii.komaniak.hacaton_app.states.ViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

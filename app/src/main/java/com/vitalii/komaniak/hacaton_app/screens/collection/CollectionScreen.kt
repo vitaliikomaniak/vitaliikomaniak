@@ -3,10 +3,11 @@ package com.vitalii.komaniak.hacaton_app.screens.collection
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.vitalii.komaniak.entities.CardModel
-import com.vitalii.komaniak.hacaton_app.common.ViewState
+import com.vitalii.komaniak.hacaton_app.presentation.entities.CardModel
+import com.vitalii.komaniak.hacaton_app.states.ViewState
 import com.vitalii.komaniak.hacaton_app.di.AppModule
 import com.vitalii.komaniak.hacaton_app.presentation.components.ListComponent
+import com.vitalii.komaniak.hacaton_app.screens.loading.LoadingScreen
 
 @Composable
 fun CollectionScreen(

@@ -30,20 +30,20 @@ object AppModule {
         return DomainModule.getLoadConfigUseCase(configRepository = configRepository)
     }
 
-    class MainViewModelFactory(private val loadConfigUseCase: LoadConfigUseCase) :
+    private class MainViewModelFactory(private val loadConfigUseCase: LoadConfigUseCase) :
         ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return MainViewModel(loadConfigUseCase = loadConfigUseCase) as T
         }
     }
 
-    class CollectionViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
+    private class CollectionViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return CollectionViewModel() as T
         }
     }
 
-    class DetailsViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
+    private class DetailsViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return DetailsViewModel() as T
         }

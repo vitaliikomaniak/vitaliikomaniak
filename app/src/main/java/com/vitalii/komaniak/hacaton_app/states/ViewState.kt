@@ -1,4 +1,4 @@
-package com.vitalii.komaniak.hacaton_app.common
+package com.vitalii.komaniak.hacaton_app.states
 
 import java.lang.Exception
 

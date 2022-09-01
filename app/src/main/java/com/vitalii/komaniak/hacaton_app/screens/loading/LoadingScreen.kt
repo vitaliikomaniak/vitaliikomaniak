@@ -1,4 +1,4 @@
-package com.vitalii.komaniak.hacaton_app.screens.collection
+package com.vitalii.komaniak.hacaton_app.screens.loading
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

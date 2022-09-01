@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.vitalii.komaniak.entities.CardModel
+import com.vitalii.komaniak.hacaton_app.presentation.entities.CardModel
 
 @Composable
 fun Card(

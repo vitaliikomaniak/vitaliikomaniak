@@ -9,18 +9,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.vitalii.komaniak.hacaton_app.R
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.vitalii.komaniak.hacaton_app.AppApplication
+import com.vitalii.komaniak.hacaton_app.R
 import com.vitalii.komaniak.hacaton_app.SetupNavigationGraph
+import com.vitalii.komaniak.hacaton_app.states.ViewState
 import com.vitalii.komaniak.hacaton_app.di.Injection
 import com.vitalii.komaniak.hacaton_app.presentation.components.BottomNavigationBar
 import com.vitalii.komaniak.hacaton_app.presentation.components.ListComponent
 import com.vitalii.komaniak.hacaton_app.presentation.components.TopBar
-import com.vitalii.komaniak.hacaton_app.screens.collection.LoadingScreen
+import com.vitalii.komaniak.hacaton_app.screens.loading.LoadingScreen
 import com.vitalii.komaniak.hacaton_app.ui.theme.AppTheme
 
 const val CONFIG_URL =
@@ -28,21 +29,26 @@ const val CONFIG_URL =
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var injection: Injection
+    private val injection: Injection by lazy { (application as AppApplication).getInjection() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        injection = (application as AppApplication).getInjection()
 
         val mainViewModel = injection.getMainViewModel(owner = this)
         mainViewModel.loadConfig(configUrl = CONFIG_URL)
 
         setContent {
-            if (true) {
-                LoadingScreen()
-            } else {
-                MainScreen()
+            val state = mainViewModel.viewState.collectAsState(initial = ViewState.Loading)
+            when (state.value) {
+                is ViewState.Loading -> {
+                    LoadingScreen()
+                }
+                is ViewState.Success<*> -> {
+                    MainScreen()
+                }
+                is ViewState.Error<*> -> {
+
+                }
             }
         }
     }
@@ -51,7 +57,6 @@ class MainActivity : ComponentActivity() {
     private fun MainScreen() {
         AppTheme {
             val navController = rememberNavController()
-            SetupNavigationGraph(navController = navController)
             var canPop by remember { mutableStateOf(false) }
             navController.addOnDestinationChangedListener { controller, _, _ ->
                 canPop = controller.previousBackStackEntry != null
