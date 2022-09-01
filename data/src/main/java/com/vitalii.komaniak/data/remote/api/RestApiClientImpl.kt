@@ -1,6 +1,7 @@
 package com.vitalii.komaniak.data.remote.api
 
 import android.util.Log
+import com.vitalii.komaniak.data.common.TAG
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -26,7 +27,7 @@ class RestApiClientImpl : RestHttpClient {
         install(Logging) {
             logger = object : Logger {
                 override fun log(message: String) {
-                    Log.d(RestHttpClient::class.simpleName, message)
+                    Log.d(RestApiClientImpl::class.java.canonicalName, message)
                 }
             }
             level = LogLevel.ALL
@@ -34,7 +35,7 @@ class RestApiClientImpl : RestHttpClient {
 
         install(ResponseObserver) {
             onResponse { response ->
-                Log.d("HTTP status:", "${response.status.value}")
+                Log.d(TAG(), "HTTP status: ${response.status.value}")
             }
         }
     }
@@ -52,10 +53,10 @@ class RestApiClientImpl : RestHttpClient {
         return response.bodyAsText()
     }
 
-    override suspend fun get(url: String, headers: Map<String, String>): String {
+    override suspend fun get(url: String, headers: Map<String, String>?): String {
         val response = client.get(url) {
             headers {
-                headers.forEach {
+                headers?.forEach {
                     append(it.key, it.value)
                 }
             }
@@ -63,25 +64,25 @@ class RestApiClientImpl : RestHttpClient {
         return response.bodyAsText()
     }
 
-    override suspend fun post(url: String, requestBody: Map<String, Any>): String {
+    override suspend fun post(url: String, requestBody: Map<String, Any>?): String {
         return client.post(url) {
-            setBody(requestBody)
+            requestBody?.let { setBody(it) }
         }.bodyAsText()
     }
 
     override suspend fun post(
         url: String,
-        headers: Map<String, String>,
-        requestBody: Map<String, Any>,
-    ): HttpResponse {
+        headers: Map<String, String>?,
+        requestBody: Map<String, Any>?,
+    ): String {
         return client.post(url) {
             headers {
-                headers.forEach {
+                headers?.forEach {
                     append(it.key, it.value)
                 }
             }
-            setBody(requestBody)
-        }
+            requestBody?.let { setBody(it) }
+        }.bodyAsText()
     }
 
     override suspend fun delete(url: String) {

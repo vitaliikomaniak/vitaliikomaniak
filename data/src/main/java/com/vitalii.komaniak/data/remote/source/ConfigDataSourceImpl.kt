@@ -14,6 +14,6 @@ class ConfigDataSourceImpl(private val restApiClient: RestHttpClient): ConfigDat
 
     override suspend fun loadConfig(configUrl: String): AppConfigResponse {
         val jsonResponse = restApiClient.get(url = configUrl)
-        return json.decodeFromString<AppConfigResponse>(jsonResponse)
+        return json.decodeFromString(jsonResponse)
     }
 }

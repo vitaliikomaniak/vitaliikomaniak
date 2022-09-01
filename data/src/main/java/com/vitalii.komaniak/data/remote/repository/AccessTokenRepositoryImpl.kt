@@ -18,7 +18,7 @@ class AccessTokenRepositoryImpl(private val accessTokenDataSource: AccessTokenDa
     }
 
     override suspend fun refreshToken(accessTokenUrl: String) {
-        val refreshTokenResponse = accessTokenDataSource.refreshToken()
+        val refreshTokenResponse = accessTokenDataSource.refreshToken(accessTokenUrl, emptyMap())
     }
 
     override suspend fun clearToken() {
