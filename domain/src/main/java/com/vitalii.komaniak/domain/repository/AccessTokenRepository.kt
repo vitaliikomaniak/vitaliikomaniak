@@ -6,7 +6,7 @@ interface AccessTokenRepository {
 
     suspend fun validateToken(request: suspend () -> Unit)
 
-    suspend fun isLocallyStoredTokenValid(): Boolean
+    suspend fun storedLocallyTokenExist(): Boolean
 
     suspend fun refreshToken(accessTokenUrl: String)
 

@@ -13,5 +13,8 @@ interface PreferencesRepository {
 
     companion object {
         const val ACCESS_TOKEN = "access_token"
+        const val REFRESH_TOKEN = "refresh_token"
+        const val EXPIRE_IN = "expire_in"
+        const val TOKEN_REQUESTED_AT = "requested_at"
     }
 }

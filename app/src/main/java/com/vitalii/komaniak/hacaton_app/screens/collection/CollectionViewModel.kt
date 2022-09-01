@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.vitalii.komaniak.hacaton_app.presentation.entities.CardModel
 import com.vitalii.komaniak.hacaton_app.states.ViewState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -29,7 +28,6 @@ class CollectionViewModel : ViewModel() {
     }
 
     private fun loadData() = viewModelScope.launch(Dispatchers.IO) {
-        delay(2500)
         viewStateMutable.value = ViewState.Success(getCards())
     }
 

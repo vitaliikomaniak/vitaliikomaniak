@@ -82,9 +82,6 @@ fun ListComponent(cards: List<CardModel>, itemClick: (CardModel) -> Unit) {
             .fillMaxSize(1f)
             .padding(16.dp)
     ) {
-        item {
-            GridComponent(cards = cards.subList(0, 3), itemClick = itemClick)
-        }
         items(cards) { item ->
             Card(cardModel = item, click = {
                 itemClick.invoke(item)
