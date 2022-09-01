@@ -40,4 +40,4 @@ data class ContentCompilerTextFields(
     @SerialName("bottom_description") val bottomDescription: ContentCompilerText?,
     @SerialName("minimizedPlayerTitle") val minimizedPlayerTitle: ContentCompilerText?,
     @SerialName("minimizedPlayerSubtitle") val minimizedPlayerSubtitle: ContentCompilerText?,
-        )
+)

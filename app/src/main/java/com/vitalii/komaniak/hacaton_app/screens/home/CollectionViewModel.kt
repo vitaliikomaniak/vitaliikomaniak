@@ -4,8 +4,8 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.vitalii.komaniak.entities.CardModel
 import com.vitalii.komaniak.hacaton_app.common.ViewState
-import com.vitalii.komaniak.hacaton_app.entities.CardsModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,8 +19,8 @@ class CollectionViewModel : ViewModel() {
     val viewState = viewStateMutable.asStateFlow()
 
     //State
-    private val _state = mutableStateOf(CardsModel())
-    val state: State<CardsModel> = _state
+    private val _state = mutableStateOf(CardModel())
+    val state: State<CardModel> = _state
 
     fun onEvent(event: HomeCollectionsEvent) {
         when (event) {
@@ -33,10 +33,10 @@ class CollectionViewModel : ViewModel() {
         viewStateMutable.value = ViewState.Success(getCards())
     }
 
-    private fun getCards(): List<CardsModel> {
-        val cards = mutableListOf<CardsModel>()
+    private fun getCards(): List<CardModel> {
+        val cards = mutableListOf<CardModel>()
         (0..20).forEach {
-            cards.add(CardsModel(
+            cards.add(CardModel(
                 id = it.inc(),
                 title = "Card title #${it.inc()}",
                 subtitle = "Card sub title #${it.inc()}",

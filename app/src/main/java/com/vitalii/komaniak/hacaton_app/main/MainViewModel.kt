@@ -13,7 +13,7 @@ class MainViewModel(private val loadConfigUseCase: LoadConfigUseCase) : ViewMode
         viewModelScope.launch {
             loadConfigUseCase.invoke(params = configUrl,
                 onSuccess = { appConfig ->
-                    Log.d(TAG(), ":: config: ${appConfig}")
+                    Log.d(TAG(), ":: config: $appConfig")
                     val entryPoint = appConfig.entryPoint
                 }, onFailure = {
                     Log.d(TAG(), ":: error: ${it.localizedMessage}")

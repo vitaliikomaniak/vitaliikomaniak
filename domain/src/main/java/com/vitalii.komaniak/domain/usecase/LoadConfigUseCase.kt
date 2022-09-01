@@ -6,8 +6,12 @@ import com.vitalii.komaniak.domain.usecase.base.Either
 import com.vitalii.komaniak.domain.usecase.base.Failure
 import com.vitalii.komaniak.domain.usecase.base.Success
 import com.vitalii.komaniak.domain.usecase.base.UseCase
+import kotlinx.coroutines.CoroutineDispatcher
 
-class LoadConfigUseCase(private val configRepository: ConfigRepository): UseCase<AppConfig, String>() {
+class LoadConfigUseCase(
+    private val coroutineDispatcher: CoroutineDispatcher,
+    private val configRepository: ConfigRepository,
+) : UseCase<AppConfig, String>(coroutineDispatcher) {
 
     override suspend fun run(params: String): Either<Exception, AppConfig> {
         return try {

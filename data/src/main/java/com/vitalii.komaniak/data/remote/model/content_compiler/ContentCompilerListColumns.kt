@@ -1,10 +1,12 @@
 package com.vitalii.komaniak.data.remote.model.content_compiler
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ContentCompilerListColumns(
-    @SerializedName("mobile_portrait") val mobilePortrait: Int?,
-    @SerializedName("tablet_portrait") val tabletPortrait: Int?,
-    @SerializedName("tablet_landscape") val tabletLandscape: Int?,
-    @SerializedName("ott") val ott: Int?,
+    @SerialName("mobile_portrait") val mobilePortrait: Int?,
+    @SerialName("tablet_portrait") val tabletPortrait: Int?,
+    @SerialName("tablet_landscape") val tabletLandscape: Int?,
+    @SerialName("ott") val ott: Int?,
 )

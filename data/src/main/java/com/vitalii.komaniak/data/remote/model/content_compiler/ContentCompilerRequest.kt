@@ -1,7 +1,9 @@
 package com.vitalii.komaniak.data.remote.model.content_compiler
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ContentCompilerRequest(
-    @SerializedName("endpoint") val endpoint: String?,
+    @SerialName("endpoint") val endpoint: String?,
 )

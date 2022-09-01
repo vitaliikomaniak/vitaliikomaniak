@@ -12,9 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.navigation.NavController
 import com.vitalii.komaniak.hacaton_app.R
+import com.vitalii.komaniak.hacaton_app.common.Screen
 import kotlinx.coroutines.delay
 
 @Composable
@@ -33,7 +33,7 @@ fun SplashScreen(navController: NavController) {
                 })
         )
         delay(3000L)
-        navController.navigate("main_screen")
+        navController.navigate(Screen.Collection.screenName)
     }
 
     Box(contentAlignment = Alignment.Center,

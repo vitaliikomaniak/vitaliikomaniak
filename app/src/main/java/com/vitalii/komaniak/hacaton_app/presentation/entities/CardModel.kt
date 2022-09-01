@@ -1,6 +1,6 @@
-package com.vitalii.komaniak.hacaton_app.entities
+package com.vitalii.komaniak.entities
 
-data class CardsModel(
+data class CardModel(
     val id: Int = -1,
     val title: String = "",
     val subtitle: String = "",

@@ -9,11 +9,13 @@ data class ContentCompilerCardSize(
     @SerialName("tablet") val tablet: ContentCompilerTabletCardSize?,
     @SerialName("ott") val ott: ContentCompilerCardSizeSpec?,
 ) {
+    @Serializable
     data class ContentCompilerCardSizeSpec(
         @SerialName("cardWidth") val cardWidth: Int?,
         @SerialName("cardHeight") val cardHeight: Int?
     )
 
+    @Serializable
     data class ContentCompilerTabletCardSize(
         @SerialName("portrait") val portrait: ContentCompilerCardSizeSpec?,
         @SerialName("landscape") val landscape: ContentCompilerCardSizeSpec?

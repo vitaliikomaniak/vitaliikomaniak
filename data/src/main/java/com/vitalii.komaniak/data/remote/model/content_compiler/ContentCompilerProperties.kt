@@ -1,77 +1,80 @@
 package com.vitalii.komaniak.data.remote.model.content_compiler
 
-import com.google.gson.annotations.SerializedName
-import com.vitalii.komaniak.data.remote.model.content_compiler.*
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ContentCompilerProperties(
-    @SerializedName("pageType") val pageType: String?,
-    @SerializedName("contentType") val contentType: String?,
-    @SerializedName("nid") val nId: Int?,
-    @SerializedName("layout") val layout: String?,
-    @SerializedName("iconKey")  val iconKey: String?,
-    @SerializedName("text") val textFields: ContentCompilerTextFields?,
-    @SerializedName("buttons") val buttons: Map<String, ContentCompilerButton>?,
-    @SerializedName("primaryButtons") val primaryButtons: List<ContentCompilerButton>?,
-    @SerializedName("secondaryButtons") val secondaryButtons: List<ContentCompilerButton>?,
-    @SerializedName("menuButtons") val menuButtons: List<ContentCompilerButton>?,
-    @SerializedName("images") val images: ContentCompilerImages?,
-    @SerializedName("chromecast_poster") val castingImages: ContentCompilerImages?,
-    @SerializedName("title") val title: String?,
-    @SerializedName("columns") val columns: Int?,
-    @SerializedName("columns_number") val listColumns: ContentCompilerListColumns?,
-    @SerializedName("headLines") val headLines: ContentCompilerHeadLines?,
-    @SerializedName("mode") val mode: String?,
-    @SerializedName("orientation") val orientation: String?,
-    @SerializedName("parentKey") val parentKey: String?,
-    @SerializedName("videoCategory") val videoCategory: String?,
-    @SerializedName("videoId") val videoId: String?,
-    @SerializedName("adConfigId") val adConfigId: String?,
-    @SerializedName("nextVideoNid") val nextVideoNid: Int?,
-    @SerializedName("childKey") val childKey: String?,
-    @SerializedName("navigation") val navigation: ContentCompilerNavigation?,
-    @SerializedName("overrideHeader") val overrideHeader: Boolean?,
-    @SerializedName("hasDivider") val hasDivider: Boolean?,
-    @SerializedName("request") val request: ContentCompilerRequest?,
-    @SerializedName("genre") val genres: List<String>?,
-    @SerializedName("shortname") val shortname: String?,
-    @SerializedName("preferred_provider") val preferredProvider: String?,
-    @SerializedName("filter") val filter: String?,
-    @SerializedName("is_primary") val isPrimary: Boolean?,
-    @SerializedName("cardType") val cardType: String?,
-    @SerializedName(value = "metadata", alternate = ["meta"]) val metadata: ContentCompilerMetadata?,
-    @SerializedName("callback") val callback: ContentCompilerCallback?,
-    @SerializedName("filterObject") val filterObject: Map<String, String>?,
-    @SerializedName("topHeader") val topHeader: ContentCompilerModule?,
-    @SerializedName("inputs") val inputs: List<ContentCompilerInput>?,
-    @SerializedName("cardSize") val cardSize: ContentCompilerCardSize?,
-    @SerializedName("isFullScreenMode") val isFullScreenMode: Boolean?,
-    @SerializedName("blurred_background") val blurredBackground: Boolean?,
-    @SerializedName("listWidth") val listWidth: Int?,
-    @SerializedName("extras") val extras : Extras?,
-    @SerializedName("img_poster_2x3") val imagePoster2x3 : ImagePoster?,
-    @SerializedName("img_wide_poster_16x9") val imageWidePoster16x9 : ImagePoster?,
-    @SerializedName("column") val column : Int?,
-    @SerializedName("authRequired") val authRequired: Boolean?,
-    @SerializedName("indicatorType") val indicatorType: String?,
-    @SerializedName("click_type") val clickType: String?,
-    @SerializedName("action") val action: ContentCompilerAction?,
-    @SerializedName("keys") val keys: ContentCompilerKeys?,
-    @SerializedName("scrollMode") val scrollMode: String?,
-    @SerializedName("isAutoScrollEnabled") val isAutoScrollEnabled: Boolean?,
-    @SerializedName("intro_start_time") val introStartTime: Long?,
-    @SerializedName("intro_end_time") val introEndTime: Long?,
-    @SerializedName("downloadData") val downloadData: ContentCompilerDownloadData?,
-    @SerializedName("enabledOffline") val enabledOffline: Boolean?,
-    @SerializedName("blurredOnScroll") val blurredOnScroll: Boolean?,
-    @SerializedName("background") val backgroundType: String?,
-    @SerializedName("style") val style: String?,
-    @SerializedName("hideLogoWithTopBar") val hideLogoWithTopBar: Boolean?,
-    @SerializedName("collapsingList") val collapsingList: Boolean?,
-    @SerializedName("collapsingFooter") val collapsingFooter: CollapsingFooter?,
-    @SerializedName("showLogoInTopBar") val showLogoInTopBar: Boolean?,
-    @SerializedName("isProgressBarVisible") val isProgressBarVisible: Boolean?,
-    @SerializedName("isSuggestedTitlesOnSearchEnabled") val isSuggestedTitlesOnSearchEnabled: Boolean?,
-    @SerializedName("isDrawListSeparatorOnTop") val isDrawListSeparatorOnTop: Boolean?,
+    @SerialName("pageType") val pageType: String?,
+    @SerialName("contentType") val contentType: String?,
+    @SerialName("nid") val nId: Int?,
+    @SerialName("layout") val layout: String?,
+    @SerialName("iconKey")  val iconKey: String?,
+    @SerialName("text") val textFields: ContentCompilerTextFields?,
+    @SerialName("buttons") val buttons: Map<String, ContentCompilerButton>?,
+    @SerialName("primaryButtons") val primaryButtons: List<ContentCompilerButton>?,
+    @SerialName("secondaryButtons") val secondaryButtons: List<ContentCompilerButton>?,
+    @SerialName("menuButtons") val menuButtons: List<ContentCompilerButton>?,
+    @SerialName("images") val images: ContentCompilerImages?,
+    @SerialName("chromecast_poster") val castingImages: ContentCompilerImages?,
+    @SerialName("title") val title: String?,
+    @SerialName("columns") val columns: Int?,
+    @SerialName("columns_number") val listColumns: ContentCompilerListColumns?,
+    @SerialName("headLines") val headLines: ContentCompilerHeadLines?,
+    @SerialName("mode") val mode: String?,
+    @SerialName("orientation") val orientation: String?,
+    @SerialName("parentKey") val parentKey: String?,
+    @SerialName("videoCategory") val videoCategory: String?,
+    @SerialName("videoId") val videoId: String?,
+    @SerialName("adConfigId") val adConfigId: String?,
+    @SerialName("nextVideoNid") val nextVideoNid: Int?,
+    @SerialName("childKey") val childKey: String?,
+    @SerialName("navigation") val navigation: ContentCompilerNavigation?,
+    @SerialName("overrideHeader") val overrideHeader: Boolean?,
+    @SerialName("hasDivider") val hasDivider: Boolean?,
+    @SerialName("request") val request: ContentCompilerRequest?,
+    @SerialName("genre") val genres: List<String>?,
+    @SerialName("shortname") val shortname: String?,
+    @SerialName("preferred_provider") val preferredProvider: String?,
+    @SerialName("filter") val filter: String?,
+    @SerialName("is_primary") val isPrimary: Boolean?,
+    @SerialName("cardType") val cardType: String?,
+    @SerialName(value = "metadata"
+       // , alternate = ["meta"]
+    ) val metadata: ContentCompilerMetadata?,
+    @SerialName("callback") val callback: ContentCompilerCallback?,
+    @SerialName("filterObject") val filterObject: Map<String, String>?,
+    @SerialName("topHeader") val topHeader: ContentCompilerModule?,
+    @SerialName("inputs") val inputs: List<ContentCompilerInput>?,
+    @SerialName("cardSize") val cardSize: ContentCompilerCardSize?,
+    @SerialName("isFullScreenMode") val isFullScreenMode: Boolean?,
+    @SerialName("blurred_background") val blurredBackground: Boolean?,
+    @SerialName("listWidth") val listWidth: Int?,
+    @SerialName("extras") val extras : Extras?,
+    @SerialName("img_poster_2x3") val imagePoster2x3 : ImagePoster?,
+    @SerialName("img_wide_poster_16x9") val imageWidePoster16x9 : ImagePoster?,
+    @SerialName("column") val column : Int?,
+    @SerialName("authRequired") val authRequired: Boolean?,
+    @SerialName("indicatorType") val indicatorType: String?,
+    @SerialName("click_type") val clickType: String?,
+    @SerialName("action") val action: ContentCompilerAction?,
+    @SerialName("keys") val keys: ContentCompilerKeys?,
+    @SerialName("scrollMode") val scrollMode: String?,
+    @SerialName("isAutoScrollEnabled") val isAutoScrollEnabled: Boolean?,
+    @SerialName("intro_start_time") val introStartTime: Long?,
+    @SerialName("intro_end_time") val introEndTime: Long?,
+    @SerialName("downloadData") val downloadData: ContentCompilerDownloadData?,
+    @SerialName("enabledOffline") val enabledOffline: Boolean?,
+    @SerialName("blurredOnScroll") val blurredOnScroll: Boolean?,
+    @SerialName("background") val backgroundType: String?,
+    @SerialName("style") val style: String?,
+    @SerialName("hideLogoWithTopBar") val hideLogoWithTopBar: Boolean?,
+    @SerialName("collapsingList") val collapsingList: Boolean?,
+    @SerialName("collapsingFooter") val collapsingFooter: CollapsingFooter?,
+    @SerialName("showLogoInTopBar") val showLogoInTopBar: Boolean?,
+    @SerialName("isProgressBarVisible") val isProgressBarVisible: Boolean?,
+    @SerialName("isSuggestedTitlesOnSearchEnabled") val isSuggestedTitlesOnSearchEnabled: Boolean?,
+    @SerialName("isDrawListSeparatorOnTop") val isDrawListSeparatorOnTop: Boolean?,
 ) {
     constructor(
         properties: ContentCompilerProperties?,
@@ -149,34 +152,40 @@ data class ContentCompilerProperties(
     )
 }
 
+@Serializable
 data class ContentCompilerButtonProperties(
-    @SerializedName("text") val textFields: ContentCompilerTextFields?,
-    @SerializedName("navigation") val navigation: ContentCompilerNavigation?,
-    @SerializedName("iconKey") val iconKey: String?,
-    @SerializedName("metadata") val metadata: ContentCompilerMetadata?,
+    @SerialName("text") val textFields: ContentCompilerTextFields?,
+    @SerialName("navigation") val navigation: ContentCompilerNavigation?,
+    @SerialName("iconKey") val iconKey: String?,
+    @SerialName("metadata") val metadata: ContentCompilerMetadata?,
 )
 
+@Serializable
 data class ContentCompilerButtonState(
-    @SerializedName("unselected") val unselected: ContentCompilerButtonProperties?,
-    @SerializedName("selected") val selected: ContentCompilerButtonProperties?,
+    @SerialName("unselected") val unselected: ContentCompilerButtonProperties?,
+    @SerialName("selected") val selected: ContentCompilerButtonProperties?,
 )
 
+@Serializable
 data class Extras (
-        @SerializedName("primary_tab_index") val primaryTabIndex: String,
-        @SerializedName("secondary_tab_index") val secondaryTabIndex: String,
+        @SerialName("primary_tab_index") val primaryTabIndex: String,
+        @SerialName("secondary_tab_index") val secondaryTabIndex: String,
 )
 
+@Serializable
 data class ImagePoster (
-        @SerializedName("title") val title: String?,
-        @SerializedName("url") val url: String?,
+        @SerialName("title") val title: String?,
+        @SerialName("url") val url: String?,
 )
 
+@Serializable
 data class CollapsingFooter(
-    @SerializedName("listCollapsed") val listCollapsed: Boolean?,
-    @SerializedName("state") val state: CollapsingFooterStates?,
+    @SerialName("listCollapsed") val listCollapsed: Boolean?,
+    @SerialName("state") val state: CollapsingFooterStates?,
 )
 
+@Serializable
 data class CollapsingFooterStates(
-    @SerializedName("collapsed") val collapsedState: Map<String, ContentCompilerButton>?,
-    @SerializedName("expanded") val expandedState: Map<String, ContentCompilerButton>?,
+    @SerialName("collapsed") val collapsedState: Map<String, ContentCompilerButton>?,
+    @SerialName("expanded") val expandedState: Map<String, ContentCompilerButton>?,
 )

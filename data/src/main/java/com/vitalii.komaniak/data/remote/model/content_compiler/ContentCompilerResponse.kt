@@ -1,11 +1,12 @@
 package com.vitalii.komaniak.data.remote.model.content_compiler
 
-import com.google.gson.annotations.SerializedName
-import com.vitalii.komaniak.data.remote.model.content_compiler.ContentCompilerModule
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ContentCompilerResponse(
-    @SerializedName("data") val data: ContentCompilerModule?,
-    @SerializedName("status") val status: Int?,
-    @SerializedName("success") val success: Boolean?,
-    @SerializedName("error") val error: String?
+    @SerialName("data") val data: ContentCompilerModule?,
+    @SerialName("status") val status: Int?,
+    @SerialName("success") val success: Boolean?,
+    @SerialName("error") val error: String?
 )

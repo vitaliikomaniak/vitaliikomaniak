@@ -5,11 +5,15 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ContentCompilerNavigation(
-    @SerialName("micro_app_type", alternate = ["type"]) val microAppType: String?,
+    @SerialName("micro_app_type"
+       // , alternate = ["type"]
+    ) val microAppType: String?,
     @SerialName("action") val action: String?,
     @SerialName("extras") val extras: Extras?,
     @SerialName("properties") val properties: ContentCompilerNavigationProperties?,
-    @SerialName(value = "request", alternate = ["client_request"]) val request: ContentCompilerNavigationRequest?,
+    @SerialName(value = "request"
+       // , alternate = ["client_request"]
+    ) val request: ContentCompilerNavigationRequest?,
 ) {
     @Serializable
     data class ContentCompilerNavigationProperties(
