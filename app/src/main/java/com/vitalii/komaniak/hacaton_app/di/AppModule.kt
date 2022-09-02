@@ -12,6 +12,7 @@ import com.vitalii.komaniak.hacaton_app.main.MainViewModel
 import com.vitalii.komaniak.hacaton_app.screens.settings.SettingsViewModel
 import com.vitalii.komaniak.hacaton_app.screens.collection.CollectionViewModel
 import com.vitalii.komaniak.hacaton_app.screens.live.LiveViewModel
+import com.vitalii.komaniak.hacaton_app.screens.navigation.NavigationViewModel
 
 object AppModule {
 
@@ -26,6 +27,10 @@ object AppModule {
 
     fun getSettingsViewModelFactory(context: Context): ViewModelProvider.Factory {
         return SettingsViewModelFactory(loadContentUseCase = getLoadContentUseCase(context))
+    }
+
+    fun getNavigationViewModelFactory(context: Context): ViewModelProvider.Factory {
+        return NavigationViewModelFactory(loadContentUseCase = getLoadContentUseCase(context))
     }
 
     fun getLiveViewModelFactory(context: Context): ViewModelProvider.Factory {
@@ -60,6 +65,13 @@ object AppModule {
         ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return SettingsViewModel(loadContentUseCase = loadContentUseCase) as T
+        }
+    }
+
+    private class NavigationViewModelFactory(private val loadContentUseCase: LoadContentUseCase) :
+        ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return NavigationViewModel(loadContentUseCase = loadContentUseCase) as T
         }
     }
 

@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                     MainScreen()
                 }
                 is ViewState.Loading -> {
-                    LoadingScreen()
+                    //LoadingScreen()
                 }
                 is ViewState.Error -> {
                     val errorMessage = (state.value as ViewState.Error).exception.message ?: stringResource(

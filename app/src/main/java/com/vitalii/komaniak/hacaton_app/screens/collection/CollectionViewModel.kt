@@ -8,6 +8,7 @@ import com.vitalii.komaniak.domain.usecase.LoadContentUseCase
 import com.vitalii.komaniak.entities.CardModel
 import com.vitalii.komaniak.hacaton_app.states.ViewState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -29,13 +30,15 @@ class CollectionViewModel(private val loadContentUseCase: LoadContentUseCase) : 
     }
 
     private fun loadData() = viewModelScope.launch(Dispatchers.IO) {
-        loadContentUseCase.invoke("path",
-            onSuccess = {
-                viewStateMutable.value = ViewState.Success(getCards())
-            }, onFailure = {
-
-            }
-        )
+        delay(2000)
+        viewStateMutable.value = ViewState.Success(getCards())
+//        loadContentUseCase.invoke("path",
+//            onSuccess = {
+//                viewStateMutable.value = ViewState.Success(getCards())
+//            }, onFailure = {
+//
+//            }
+//        )
     }
 
     private fun getCards(): List<CardModel> {

@@ -8,6 +8,7 @@ import com.vitalii.komaniak.hacaton_app.common.Screen
 import com.vitalii.komaniak.hacaton_app.screens.settings.SettingsScreen
 import com.vitalii.komaniak.hacaton_app.screens.collection.CollectionScreen
 import com.vitalii.komaniak.hacaton_app.screens.live.LiveScreen
+import com.vitalii.komaniak.hacaton_app.screens.navigation.NavigationScreen
 
 @Composable
 fun SetupNavigationGraph(navController: NavHostController) {
@@ -37,6 +38,11 @@ fun SetupNavigationGraph(navController: NavHostController) {
         }
         composable(route = Screen.Settings.screenName) {
             SettingsScreen(onClickCallback = {
+                navController.popBackStack()
+            })
+        }
+        composable(route = Screen.Navigation.screenName) {
+            NavigationScreen(onClickCallback = {
                 navController.popBackStack()
             })
         }
