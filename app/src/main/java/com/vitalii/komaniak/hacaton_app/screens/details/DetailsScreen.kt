@@ -22,12 +22,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vitalii.komaniak.hacaton_app.states.ViewState
 import com.vitalii.komaniak.hacaton_app.di.AppModule
 import com.vitalii.komaniak.hacaton_app.screens.loading.LoadingScreen
 
 @Composable
-fun DetailsScreen(viewModel: DetailsViewModel = androidx.lifecycle.viewmodel.compose.viewModel(factory = AppModule.getCollectionViewModelFactory()), onclick: () -> Unit) {
+fun DetailsScreen(
+    viewModel: DetailsViewModel = viewModel(factory = AppModule.getDetailsViewModelFactory()),
+    onClickCallback: () -> Unit,
+) {
 
     val state = viewModel.viewState.collectAsState(initial = ViewState.Loading)
     when (state.value) {
@@ -36,8 +40,9 @@ fun DetailsScreen(viewModel: DetailsViewModel = androidx.lifecycle.viewmodel.com
             viewModel.onEvent(DetailsEvent.LoadDetails)
         }
         is ViewState.Success<*> -> {
-            //DetailsContentScreen(onclick = onclick)
-            Content()
+            DetailsContentScreen(onClickCallback = {
+                onClickCallback.invoke()
+            })
         }
         is ViewState.Error<*> -> {
 
@@ -45,18 +50,9 @@ fun DetailsScreen(viewModel: DetailsViewModel = androidx.lifecycle.viewmodel.com
     }
 }
 
-@Composable
-fun DetailsContentScreen(onclick: () -> Unit) {
-    Button(onClick = {
-        onclick.invoke()
-    }) {
-        Text(text = "Button click")
-    }
-}
-
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun Content() {
+fun DetailsContentScreen(onClickCallback: () -> Unit) {
     Row {
         LazyColumn {
             items(20) { index ->
@@ -112,7 +108,7 @@ fun Modifier.dpadFocusable(
     onClick: () -> Unit,
     borderWidth: Dp = 4.dp,
     unfocusedBorderColor: Color = Color(0x00f39c12),
-    focusedBorderColor: Color = Color(0xfff39c12)
+    focusedBorderColor: Color = Color(0xfff39c12),
 ) = composed {
     val boxInteractionSource = remember { MutableInteractionSource() }
     val isItemFocused by boxInteractionSource.collectIsFocusedAsState()
@@ -121,11 +117,8 @@ fun Modifier.dpadFocusable(
         if (isItemFocused) focusedBorderColor
         else unfocusedBorderColor
     )
-
-    this
-        .border(
+    this.border(
             width = borderWidth,
             color = animatedBorderColor
-        )
-        .focusable(interactionSource = boxInteractionSource)
+        ).focusable(interactionSource = boxInteractionSource)
 }

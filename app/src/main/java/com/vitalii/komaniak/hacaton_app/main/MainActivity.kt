@@ -13,15 +13,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import com.vitalii.komaniak.components.BottomNavigationBar
+import com.vitalii.komaniak.components.ListOfListsComponent
+import com.vitalii.komaniak.components.TopBar
+import com.vitalii.komaniak.entities.CollectionComponentModel
 import com.vitalii.komaniak.hacaton_app.AppApplication
 import com.vitalii.komaniak.hacaton_app.R
 import com.vitalii.komaniak.hacaton_app.SetupNavigationGraph
 import com.vitalii.komaniak.hacaton_app.states.ViewState
 import com.vitalii.komaniak.hacaton_app.di.Injection
-import com.vitalii.komaniak.hacaton_app.presentation.components.BottomNavigationBar
-import com.vitalii.komaniak.hacaton_app.presentation.components.ListComponent
-import com.vitalii.komaniak.hacaton_app.presentation.components.TopBar
-import com.vitalii.komaniak.hacaton_app.screens.loading.LoadingScreen
+import com.vitalii.komaniak.hacaton_app.screens.SplashScreen
 import com.vitalii.komaniak.hacaton_app.ui.theme.AppTheme
 
 const val CONFIG_URL =
@@ -38,17 +39,16 @@ class MainActivity : ComponentActivity() {
         mainViewModel.loadConfig(configUrl = CONFIG_URL)
 
         setContent {
+            SplashScreen(splashFinished = {
+
+            })
             val state = mainViewModel.viewState.collectAsState(initial = ViewState.Loading)
             when (state.value) {
-                is ViewState.Loading -> {
-                    LoadingScreen()
-                }
                 is ViewState.Success<*> -> {
                     MainScreen()
                 }
-                is ViewState.Error<*> -> {
-
-                }
+                is ViewState.Loading -> {}
+                is ViewState.Error<*> -> {}
             }
         }
     }
@@ -70,9 +70,21 @@ class MainActivity : ComponentActivity() {
                         canPop = canPop,
                         iconClick = { navController.navigateUp() })
                 },
-                bottomBar = { BottomNavigationBar(navController = navController) },
+                bottomBar = {
+                    BottomNavigationBar(navItemClicked = { item ->
+                        navController.navigate(item.route) {
+                            navController.graph.startDestinationRoute?.let { route ->
+                                popUpTo(route) {
+                                    saveState = true
+                                }
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    })
+                },
             ) {
-                Box(modifier = Modifier.padding(10.dp)) {
+                Box(modifier = Modifier.padding(2.dp)) {
                     SetupNavigationGraph(navController = navController)
                 }
             }
@@ -84,7 +96,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     AppTheme {
-        ListComponent(cards = emptyList(), itemClick = {
+        ListOfListsComponent(listComponentModel = CollectionComponentModel(type = "list",
+            cards = emptyList()), itemClick = {
             //no-op
         })
     }

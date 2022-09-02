@@ -3,7 +3,9 @@ package com.vitalii.komaniak.hacaton_app.common
 sealed class Screen(val screenName: String) {
 
     object Collection: Screen(COLLECTION)
+    object MyStuff: Screen(MY_STUFF)
     object Details: Screen(DETAILS)
+    object Live: Screen(LIVE)
     object Navigation : Screen(NAVIGATION)
     object Splash : Screen(SPLASH)
     object MemberHome : Screen(TABLE_LIST)
@@ -18,6 +20,8 @@ sealed class Screen(val screenName: String) {
     companion object {
         const val NAVIGATION = "navigation"
         const val COLLECTION = "collection"
+        const val MY_STUFF = "mystuff"
+        const val LIVE = "live"
         const val DETAILS = "details"
         const val SPLASH = "splash"
         const val TABLE_LIST = "table-list"

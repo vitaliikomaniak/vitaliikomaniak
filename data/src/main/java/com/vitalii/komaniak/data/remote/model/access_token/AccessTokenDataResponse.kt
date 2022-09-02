@@ -9,7 +9,7 @@ data class AccessTokenDataResponse(
     @SerialName("token_type") val tokenType: String,
     @SerialName("expires_in") val expireIn: Long,
     @SerialName("refresh_token") val refreshToken: String,
-    @SerialName("cache_hash") val cacheHash: String?,
-    @SerialName("user_cache_hash") val user_cache_hash: String?,
+    @SerialName("cache_hash") val cacheHash: String,
+    @SerialName("user_cache_hash") val user_cache_hash: String,
     @SerialName("code") val code: String,
 )

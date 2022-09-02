@@ -13,23 +13,30 @@ import com.vitalii.komaniak.hacaton_app.screens.collection.CollectionScreen
 fun SetupNavigationGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.screenName
+        startDestination = Screen.Collection.screenName
     ) {
-        composable(route = Screen.Splash.screenName) {
-            SplashScreen(navController)
-        }
         composable(route = Screen.Collection.screenName) {
-            CollectionScreen(cardClick = { cardsModel ->
+            CollectionScreen(cardClick = { itemClick ->
                 navController.navigate(route = Screen.Details.screenName)
             })
         }
         composable(route = Screen.Explore.screenName) {
-            CollectionScreen(cardClick = { cardsModel ->
+            CollectionScreen(cardClick = { itemClick ->
                 navController.navigate(route = Screen.Details.screenName)
             })
         }
-        composable(route = Screen.Details.screenName) {
-            DetailsScreen(onclick = {
+        composable(route = Screen.MyStuff.screenName) {
+            CollectionScreen(cardClick = { itemClick ->
+                navController.navigate(route = Screen.Details.screenName)
+            })
+        }
+        composable(route = Screen.Live.screenName) {
+            DetailsScreen(itemClick = {
+                navController.navigate(route = Screen.Details.screenName)
+            })
+        }
+        composable(route = Screen.Settings.screenName) {
+            DetailsScreen(itemClick = {
                 navController.popBackStack()
             })
         }

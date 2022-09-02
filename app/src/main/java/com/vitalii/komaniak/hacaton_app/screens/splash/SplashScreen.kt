@@ -20,7 +20,7 @@ import com.vitalii.komaniak.hacaton_app.common.Screen
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(splashFinished: () -> Unit) {
     val scale = remember {
         androidx.compose.animation.core.Animatable(0f)
     }
@@ -34,8 +34,8 @@ fun SplashScreen(navController: NavController) {
                     OvershootInterpolator(4f).getInterpolation(it)
                 })
         )
-        delay(1500L)
-        navController.navigate(Screen.Collection.screenName)
+        delay(3500L)
+        splashFinished()
     }
 
     Box(contentAlignment = Alignment.Center,

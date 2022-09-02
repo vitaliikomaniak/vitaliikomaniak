@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -54,5 +54,4 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences-core:1.0.0")
 
     implementation(project(":domain"))
-
 }

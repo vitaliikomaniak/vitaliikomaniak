@@ -1,11 +1,13 @@
 package com.vitalii.komaniak.hacaton_app.di
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.vitalii.komaniak.data.di.DataModule
 import com.vitalii.komaniak.domain.di.DomainModule
 import com.vitalii.komaniak.domain.usecase.LoadConfigUseCase
+import com.vitalii.komaniak.domain.usecase.LoadContentUseCase
 import com.vitalii.komaniak.hacaton_app.main.MainViewModel
 import com.vitalii.komaniak.hacaton_app.screens.details.DetailsViewModel
 import com.vitalii.komaniak.hacaton_app.screens.collection.CollectionViewModel
@@ -17,12 +19,17 @@ object AppModule {
         return ViewModelProvider(owner, factory)[MainViewModel::class.java]
     }
 
-    fun getCollectionViewModelFactory(): ViewModelProvider.Factory {
-        return CollectionViewModelFactory()
+    fun getCollectionViewModelFactory(context: Context): ViewModelProvider.Factory {
+        return CollectionViewModelFactory(loadContentUseCase = getLoadContentUseCase(context))
     }
 
     fun getDetailsViewModelFactory(): ViewModelProvider.Factory {
-        return CollectionViewModelFactory()
+        return DetailsViewModelFactory()
+    }
+
+    private fun getLoadContentUseCase(context: Context): LoadContentUseCase {
+        val contentRepository = DataModule.getContentRepository(context)
+        return DomainModule.getLoadContentUseCase(contentRepository = contentRepository)
     }
 
     private fun getLoadConfigUseCase(): LoadConfigUseCase {
@@ -37,9 +44,10 @@ object AppModule {
         }
     }
 
-    private class CollectionViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
+    private class CollectionViewModelFactory(private val loadContentUseCase: LoadContentUseCase) :
+        ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return CollectionViewModel() as T
+            return CollectionViewModel(loadContentUseCase = loadContentUseCase) as T
         }
     }
 

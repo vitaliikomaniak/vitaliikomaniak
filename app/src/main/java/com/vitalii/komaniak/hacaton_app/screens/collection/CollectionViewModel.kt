@@ -4,14 +4,15 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.vitalii.komaniak.hacaton_app.presentation.entities.CardModel
+import com.vitalii.komaniak.domain.usecase.LoadContentUseCase
+import com.vitalii.komaniak.entities.CardModel
 import com.vitalii.komaniak.hacaton_app.states.ViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class CollectionViewModel : ViewModel() {
+class CollectionViewModel(private val loadContentUseCase: LoadContentUseCase) : ViewModel() {
 
     private val viewStateMutable: MutableStateFlow<ViewState<*>> =
         MutableStateFlow(ViewState.Loading)
@@ -28,12 +29,18 @@ class CollectionViewModel : ViewModel() {
     }
 
     private fun loadData() = viewModelScope.launch(Dispatchers.IO) {
-        viewStateMutable.value = ViewState.Success(getCards())
+        loadContentUseCase.invoke("path",
+            onSuccess = {
+                viewStateMutable.value = ViewState.Success(getCards())
+            }, onFailure = {
+
+            }
+        )
     }
 
     private fun getCards(): List<CardModel> {
         val cards = mutableListOf<CardModel>()
-        (0..20).forEach {
+        (0..4).forEach {
             cards.add(CardModel(
                 id = it.inc(),
                 title = "Card title #${it.inc()}",
