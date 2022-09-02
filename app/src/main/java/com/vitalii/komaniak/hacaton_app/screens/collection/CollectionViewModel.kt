@@ -2,10 +2,10 @@ package com.vitalii.komaniak.hacaton_app.screens.collection
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vitalii.komaniak.domain.usecase.LoadContentUseCase
 import com.vitalii.komaniak.entities.CardModel
+import com.vitalii.komaniak.hacaton_app.common.ContentViewModel
 import com.vitalii.komaniak.hacaton_app.states.ViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class CollectionViewModel(private val loadContentUseCase: LoadContentUseCase) : ViewModel() {
+class CollectionViewModel(private val loadContentUseCase: LoadContentUseCase) :
+    ContentViewModel(loadContentUseCase) {
 
     private val viewStateMutable: MutableStateFlow<ViewState<*>> =
         MutableStateFlow(ViewState.Loading)
@@ -32,11 +33,11 @@ class CollectionViewModel(private val loadContentUseCase: LoadContentUseCase) : 
     private fun loadData() = viewModelScope.launch(Dispatchers.IO) {
         delay(2000)
         viewStateMutable.value = ViewState.Success(getCards())
-//        loadContentUseCase.invoke("path",
+//        loadContent(contentPath = "path",
 //            onSuccess = {
 //                viewStateMutable.value = ViewState.Success(getCards())
 //            }, onFailure = {
-//
+//                Log.d(TAG(), ":: content error: ${it}")
 //            }
 //        )
     }
