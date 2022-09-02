@@ -1,6 +1,7 @@
 package com.vitalii.komaniak.data.di
 
 import android.content.Context
+import com.vitalii.komaniak.data.common.DeviceEnvironmentImpl
 import com.vitalii.komaniak.data.remote.api.RestApiClientImpl
 import com.vitalii.komaniak.data.remote.mapping.DataMapper
 import com.vitalii.komaniak.data.remote.mapping.access_token.AccessTokenResponseDataMapper
@@ -42,6 +43,7 @@ object DataModule {
             preferencesRepository = PreferencesRepositoryImpl(context = context),
             requestHeadersRepository = getRequestHeadersRepository(),
             dataMapper = AccessTokenResponseDataMapper(),
+            environment = DeviceEnvironmentImpl()
         )
     }
 

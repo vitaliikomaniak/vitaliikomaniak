@@ -1,5 +1,6 @@
 package com.vitalii.komaniak.data.remote.repository
 
+import com.vitalii.komaniak.data.common.Environment
 import com.vitalii.komaniak.data.remote.DataSource
 import com.vitalii.komaniak.data.remote.mapping.DataMapper
 import com.vitalii.komaniak.data.remote.model.RequestParams
@@ -14,13 +15,14 @@ class AccessTokenRepositoryImpl(
     private val preferencesRepository: PreferencesRepository,
     private val requestHeadersRepository: Repository<String, Map<String, String>>,
     private val dataMapper: DataMapper<AccessTokenDataResponse, AccessToken>,
+    private val environment: Environment,
 ) : AccessTokenRepository {
 
     override suspend fun requestToken(accessTokenUrl: String): AccessToken {
         val requestHeaders = requestHeadersRepository.read("android")
         val accessTokenResponse =
             accessTokenDataSource.read(input = RequestParams(
-                requestUrl = accessTokenUrl,
+                requestUrl = "$accessTokenUrl/unauth",
                 headers = requestHeaders)
             )
         return dataMapper.convert(accessTokenResponse).also {
@@ -31,11 +33,14 @@ class AccessTokenRepositoryImpl(
     override suspend fun getValidToken(): String {
         val expireIn = preferencesRepository.getValue(PreferencesRepository.ACCESS_TOKEN, 0)
         val token = preferencesRepository.getValue(PreferencesRepository.ACCESS_TOKEN, "")
-        if (isTokenExpired(expireIn)) {
-            val refreshTokenResponse = refreshToken("")
-
+        if (storedLocallyTokenExist().not()) {
+            requestToken(accessTokenUrl = getAuthBaseUrl())
         } else {
-
+            return if (isTokenExpired(expireIn)) {
+                refreshToken(accessTokenUrl = getAuthBaseUrl()).accessToken
+            } else {
+                token
+            }
         }
         return token
     }
@@ -46,7 +51,7 @@ class AccessTokenRepositoryImpl(
 
     override suspend fun refreshToken(accessTokenUrl: String): AccessToken {
         val refreshTokenResponse = accessTokenDataSource.read(input = RequestParams(
-            requestUrl = accessTokenUrl,
+            requestUrl = "$accessTokenUrl/refresh",
             headers = emptyMap())
         )
         return dataMapper.convert(refreshTokenResponse).also {
@@ -63,7 +68,7 @@ class AccessTokenRepositoryImpl(
         preferencesRepository.setValue(PreferencesRepository.REFRESH_TOKEN, token.refreshToken)
         preferencesRepository.setValue(PreferencesRepository.EXPIRE_IN, token.expireIn)
         preferencesRepository.setValue(PreferencesRepository.TOKEN_REQUESTED_AT,
-            System.currentTimeMillis())
+            environment.getCurrentTime())
     }
 
     private fun clearTokenData() {
@@ -73,7 +78,14 @@ class AccessTokenRepositoryImpl(
         preferencesRepository.setValue(PreferencesRepository.TOKEN_REQUESTED_AT, 0)
     }
 
-    private fun isTokenExpired(expireIn: Int): Boolean {
-        return false
+    private suspend fun isTokenExpired(expireIn: Int): Boolean {
+        val currentTime = environment.getCurrentTime()
+        val tokenRequestedTime =
+            preferencesRepository.getValue(PreferencesRepository.TOKEN_REQUESTED_AT, 0)
+        return currentTime - tokenRequestedTime > expireIn
+    }
+
+    private fun getAuthBaseUrl(): String {
+        return "https://gw.cds.amcn.com/auth-orchestration-id/api/v1/"
     }
 }
