@@ -13,7 +13,7 @@ class ButtonPropertiesDataMapper : DataMapper<ContentCompilerButtonProperties, B
             textFields = TextDataMapper().convertNullable(textFields),
             navigation = NavigationDataMapper().convertNullable(navigation),
             iconKey = iconKey,
-            metadata = MetadataDataMapper().convertNullable(metadata)
+            //TODO metadata = MetadataDataMapper().convertNullable(metadata)
         )
     }
 }
@@ -26,14 +26,14 @@ class ButtonStateDataMapper : DataMapper<ContentCompilerButtonState, ButtonState
             textFields = TextDataMapper().convertNullable(unselected?.textFields),
             navigation = NavigationDataMapper().convertNullable(unselected?.navigation),
             iconKey = unselected?.iconKey,
-            metadata = MetadataDataMapper().convertNullable(unselected?.metadata)
+            //TODO metadata = MetadataDataMapper().convertNullable(unselected?.metadata)
         )
 
         val selectedState = ButtonProperties(
             textFields = TextDataMapper().convertNullable(selected?.textFields),
             navigation = NavigationDataMapper().convertNullable(selected?.navigation),
             iconKey = selected?.iconKey,
-            metadata = MetadataDataMapper().convertNullable(selected?.metadata)
+            //TODO metadata = MetadataDataMapper().convertNullable(selected?.metadata)
         )
 
         return ButtonState(

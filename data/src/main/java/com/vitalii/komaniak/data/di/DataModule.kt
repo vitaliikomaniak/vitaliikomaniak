@@ -1,7 +1,8 @@
 package com.vitalii.komaniak.data.di
 
-import com.vitalii.komaniak.data.remote.ConfigDataSource
+import com.vitalii.komaniak.data.remote.DataSource
 import com.vitalii.komaniak.data.remote.api.RestApiClientImpl
+import com.vitalii.komaniak.data.remote.model.AppConfigResponse
 import com.vitalii.komaniak.data.remote.repository.ConfigRepositoryImpl
 import com.vitalii.komaniak.data.remote.source.ConfigDataSourceImpl
 import com.vitalii.komaniak.domain.model.app_config.AppConfig
@@ -15,7 +16,7 @@ object DataModule {
         return ConfigRepositoryImpl(configDataSource = getConfigDataSource())
     }
 
-    private fun getConfigDataSource(): ConfigDataSource {
+    private fun getConfigDataSource(): DataSource<String, AppConfigResponse> {
         return ConfigDataSourceImpl(restApiClient = restHttpClient)
     }
 }

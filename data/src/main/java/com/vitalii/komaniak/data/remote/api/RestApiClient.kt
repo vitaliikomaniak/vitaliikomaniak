@@ -1,6 +1,6 @@
 package com.vitalii.komaniak.data.remote.api
 
-interface RestHttpClient {
+interface RestApiClient {
 
     suspend fun get(url: String): String
 
@@ -13,6 +13,4 @@ interface RestHttpClient {
         headers: Map<String, String>?,
         requestBody: Map<String, Any>?,
     ): String
-
-    suspend fun delete(url: String)
 }

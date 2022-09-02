@@ -1,4 +1,4 @@
-package com.vitalii.komaniak.data.remote.mappers.config
+package com.vitalii.komaniak.data.remote.mapping.config
 
 import com.vitalii.komaniak.data.remote.model.OneTrustResponse
 import com.vitalii.komaniak.data.remote.mapping.DataMapper

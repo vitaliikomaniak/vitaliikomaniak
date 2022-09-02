@@ -1,11 +1,13 @@
 package com.vitalii.komaniak.data.remote.repository
 
-import com.vitalii.komaniak.data.remote.StylesDataSource
+import com.vitalii.komaniak.data.remote.DataSource
+import com.vitalii.komaniak.data.remote.model.StylesResponse
 import com.vitalii.komaniak.domain.repository.StylesRepository
 
-class StylesRepositoryImpl(private val stylesDataSource: StylesDataSource): StylesRepository {
+class StylesRepositoryImpl(private val stylesDataSource: DataSource<String, StylesResponse>) :
+    StylesRepository {
 
     override suspend fun loadStyles(stylesUrl: String) {
-        stylesDataSource.loadStyles(stylesUrl = stylesUrl)
+        stylesDataSource.read(input = stylesUrl)
     }
 }

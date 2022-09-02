@@ -12,7 +12,7 @@ import io.ktor.client.statement.*
 import kotlinx.serialization.json.Json
 
 
-class RestApiClientImpl : RestHttpClient {
+class RestApiClientImpl : RestApiClient {
 
     private val client = HttpClient(Android) {
         val TIME_OUT = 15_000
@@ -83,11 +83,5 @@ class RestApiClientImpl : RestHttpClient {
             }
             requestBody?.let { setBody(it) }
         }.bodyAsText()
-    }
-
-    override suspend fun delete(url: String) {
-        val delete: HttpResponse = client.delete {
-            url(url)
-        }
     }
 }

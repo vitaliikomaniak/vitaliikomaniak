@@ -25,7 +25,7 @@ class NavigationDataMapper :
             endpoint = getEndpoint(this.request),
             fullScreen = fullScreenAfterCheckingFullscreenMode,
             isModal = isModalAfterCheckingFullscreenMode,
-            extras = this.extras
+            //TODO extras = this.extras
         )
     }
 
