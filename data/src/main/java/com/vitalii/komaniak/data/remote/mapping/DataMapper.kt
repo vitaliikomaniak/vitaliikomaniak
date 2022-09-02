@@ -15,4 +15,16 @@ abstract class DataMapper<in T, out U> {
     fun convertList(dtoEntityList: List<T>): List<U> {
         return dtoEntityList.map { it.fromDto() }
     }
+
+    fun convertNullableList(dtoEntityList: List<T>?): List<U>? {
+        return dtoEntityList?.map { it.fromDto() }
+    }
+
+    fun <K> convertMap(dtoEntityMap: Map<K, T>): Map<K, U> {
+        return dtoEntityMap.mapValues { it.value.fromDto() }
+    }
+
+    fun <K> convertNullableMap(dtoEntityMap: Map<K, T>?): Map<K, U>? {
+        return dtoEntityMap?.mapValues { it.value.fromDto() }
+    }
 }

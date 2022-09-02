@@ -12,8 +12,4 @@ class ConfigRepositoryImpl(private val configDataSource: ConfigDataSource): Repo
             AppConfigDataMapper().convert(appConfigResponse)
         }
     }
-
-    override suspend fun update(input: String) = Unit
-    override suspend fun create(input: String) = Unit
-    override suspend fun delete(input: String) = Unit
 }
