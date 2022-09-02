@@ -36,7 +36,6 @@ class PreferencesRepositoryImpl(val context: Context) : PreferencesRepository {
         }
     }
 
-
     override fun <T> getValueFlow(key: String, defaultValue: T): Flow<T> {
         val prefKey = getPrefKey(key, defaultValue)
         return dataStore.data.map { (it[prefKey] ?: defaultValue) as T }
@@ -56,5 +55,4 @@ class PreferencesRepositoryImpl(val context: Context) : PreferencesRepository {
         is Set<*> -> stringSetPreferencesKey(key)
         else -> throw UnsupportedOperationException("Not implemented")
     }
-
 }

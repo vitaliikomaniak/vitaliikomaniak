@@ -1,4 +1,4 @@
-package com.vitalii.komaniak.hacaton_app.screens.details
+package com.vitalii.komaniak.hacaton_app.screens.live
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
@@ -9,7 +9,6 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -19,40 +18,47 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.vitalii.komaniak.hacaton_app.states.ViewState
+import com.vitalii.komaniak.hacaton_app.R
 import com.vitalii.komaniak.hacaton_app.di.AppModule
+import com.vitalii.komaniak.hacaton_app.screens.error_page.ErrorScreen
 import com.vitalii.komaniak.hacaton_app.screens.loading.LoadingScreen
+import com.vitalii.komaniak.hacaton_app.states.ViewState
 
 @Composable
-fun DetailsScreen(
-    viewModel: DetailsViewModel = viewModel(factory = AppModule.getDetailsViewModelFactory()),
+fun LiveScreen(
+    viewModel: LiveViewModel = viewModel(factory = AppModule.getLiveViewModelFactory(
+        context = LocalContext.current)
+    ),
     onClickCallback: () -> Unit,
 ) {
-
     val state = viewModel.viewState.collectAsState(initial = ViewState.Loading)
     when (state.value) {
         is ViewState.Loading -> {
             LoadingScreen()
-            viewModel.onEvent(DetailsEvent.LoadDetails)
+            viewModel.onEvent(LiveEvent.LoadLiveChannels)
         }
-        is ViewState.Success<*> -> {
-            DetailsContentScreen(onClickCallback = {
+        is ViewState.Success -> {
+            LiveChannelsContentScreen(onClickCallback = {
                 onClickCallback.invoke()
             })
         }
-        is ViewState.Error<*> -> {
-
+        is ViewState.Error -> {
+            val errorMessage = (state.value as ViewState.Error).exception.message ?: stringResource(
+                id = R.string.error_message)
+            ErrorScreen(errorMessage = errorMessage)
         }
     }
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun DetailsContentScreen(onClickCallback: () -> Unit) {
+fun LiveChannelsContentScreen(onClickCallback: () -> Unit) {
     Row {
         LazyColumn {
             items(20) { index ->
@@ -117,8 +123,10 @@ fun Modifier.dpadFocusable(
         if (isItemFocused) focusedBorderColor
         else unfocusedBorderColor
     )
-    this.border(
+    this
+        .border(
             width = borderWidth,
             color = animatedBorderColor
-        ).focusable(interactionSource = boxInteractionSource)
+        )
+        .focusable(interactionSource = boxInteractionSource)
 }

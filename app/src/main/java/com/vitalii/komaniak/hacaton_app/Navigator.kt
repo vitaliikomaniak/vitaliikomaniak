@@ -5,9 +5,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.vitalii.komaniak.hacaton_app.common.Screen
-import com.vitalii.komaniak.hacaton_app.screens.SplashScreen
-import com.vitalii.komaniak.hacaton_app.screens.details.DetailsScreen
+import com.vitalii.komaniak.hacaton_app.screens.settings.SettingsScreen
 import com.vitalii.komaniak.hacaton_app.screens.collection.CollectionScreen
+import com.vitalii.komaniak.hacaton_app.screens.live.LiveScreen
 
 @Composable
 fun SetupNavigationGraph(navController: NavHostController) {
@@ -31,12 +31,12 @@ fun SetupNavigationGraph(navController: NavHostController) {
             })
         }
         composable(route = Screen.Live.screenName) {
-            DetailsScreen(itemClick = {
+            LiveScreen(onClickCallback = {
                 navController.navigate(route = Screen.Details.screenName)
             })
         }
         composable(route = Screen.Settings.screenName) {
-            DetailsScreen(itemClick = {
+            SettingsScreen(onClickCallback = {
                 navController.popBackStack()
             })
         }

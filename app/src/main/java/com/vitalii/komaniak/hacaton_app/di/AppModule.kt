@@ -9,8 +9,9 @@ import com.vitalii.komaniak.domain.di.DomainModule
 import com.vitalii.komaniak.domain.usecase.LoadConfigUseCase
 import com.vitalii.komaniak.domain.usecase.LoadContentUseCase
 import com.vitalii.komaniak.hacaton_app.main.MainViewModel
-import com.vitalii.komaniak.hacaton_app.screens.details.DetailsViewModel
+import com.vitalii.komaniak.hacaton_app.screens.settings.SettingsViewModel
 import com.vitalii.komaniak.hacaton_app.screens.collection.CollectionViewModel
+import com.vitalii.komaniak.hacaton_app.screens.live.LiveViewModel
 
 object AppModule {
 
@@ -23,8 +24,12 @@ object AppModule {
         return CollectionViewModelFactory(loadContentUseCase = getLoadContentUseCase(context))
     }
 
-    fun getDetailsViewModelFactory(): ViewModelProvider.Factory {
-        return DetailsViewModelFactory()
+    fun getSettingsViewModelFactory(context: Context): ViewModelProvider.Factory {
+        return SettingsViewModelFactory(loadContentUseCase = getLoadContentUseCase(context))
+    }
+
+    fun getLiveViewModelFactory(context: Context): ViewModelProvider.Factory {
+        return LiveViewModelFactory(loadContentUseCase = getLoadContentUseCase(context))
     }
 
     private fun getLoadContentUseCase(context: Context): LoadContentUseCase {
@@ -51,9 +56,17 @@ object AppModule {
         }
     }
 
-    private class DetailsViewModelFactory() : ViewModelProvider.NewInstanceFactory() {
+    private class SettingsViewModelFactory(private val loadContentUseCase: LoadContentUseCase) :
+        ViewModelProvider.NewInstanceFactory() {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return DetailsViewModel() as T
+            return SettingsViewModel(loadContentUseCase = loadContentUseCase) as T
+        }
+    }
+
+    private class LiveViewModelFactory(private val loadContentUseCase: LoadContentUseCase) :
+        ViewModelProvider.NewInstanceFactory() {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return LiveViewModel(loadContentUseCase = loadContentUseCase) as T
         }
     }
 }

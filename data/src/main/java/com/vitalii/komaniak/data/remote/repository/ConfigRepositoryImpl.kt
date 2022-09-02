@@ -6,12 +6,12 @@ import com.vitalii.komaniak.data.remote.model.AppConfigResponse
 import com.vitalii.komaniak.domain.model.app_config.AppConfig
 import com.vitalii.komaniak.domain.repository.Repository
 
-class ConfigRepositoryImpl(private val configDataSource: DataSource<String, AppConfigResponse>) :
+class ConfigRepositoryImpl(private val configDataSource: DataSource<String, Result<AppConfigResponse>>) :
     Repository<String, AppConfig> {
 
     override suspend fun read(configUrl: String): AppConfig {
         return configDataSource.read(configUrl).let { appConfigResponse ->
-            AppConfigDataMapper().convert(appConfigResponse)
+            AppConfigDataMapper().convert(appConfigResponse.getOrThrow())
         }
     }
 }

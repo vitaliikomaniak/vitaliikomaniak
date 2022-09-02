@@ -12,21 +12,37 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val loadConfigUseCase: LoadConfigUseCase) : ViewModel() {
 
-    private val viewStateMutable: MutableStateFlow<ViewState<*>> = MutableStateFlow(ViewState.Loading)
+    private val viewStateMutable: MutableStateFlow<ViewState<*>> =
+        MutableStateFlow(ViewState.Loading)
     val viewState = viewStateMutable.asStateFlow()
 
-    fun loadConfig(configUrl: String) {
+    fun loadAppConfig(configUrl: String) {
         viewModelScope.launch {
             loadConfigUseCase.invoke(params = configUrl,
                 onSuccess = { appConfig ->
                     Log.d(TAG(), ":: config: $appConfig")
                     val entryPoint = appConfig.entryPoint
-
                     viewStateMutable.value = ViewState.Success(Unit)
                 }, onFailure = {
                     Log.d(TAG(), ":: error: ${it.localizedMessage}")
+                    viewStateMutable.value = ViewState.Error(it)
                 }
             )
         }
+    }
+
+    fun onEvent(event: MainEvent) {
+        when (event) {
+            MainEvent.OpenEntrypoint -> openEntryPoint()
+            MainEvent.LoadStyles -> loadStyles()
+        }
+    }
+
+    private fun loadStyles() {
+
+    }
+
+    private fun openEntryPoint() {
+
     }
 }

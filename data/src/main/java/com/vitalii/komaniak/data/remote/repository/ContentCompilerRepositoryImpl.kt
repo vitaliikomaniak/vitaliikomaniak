@@ -13,7 +13,7 @@ class ContentCompilerRepositoryImpl(
     private val accessTokenRepository: AccessTokenRepository,
     private val requestHeadersRepository: Repository<String, Map<String, String>>,
     private val dataMapper: DataMapper<ContentCompilerModule, Module>,
-    private val contentCompilerDataSource: DataSource<RequestParams, ContentCompilerResponse>,
+    private val contentCompilerDataSource: DataSource<RequestParams, Result<ContentCompilerResponse>>,
 ) : Repository<String, Module> {
 
     override suspend fun read(contentUrl: String): Module {
@@ -24,6 +24,6 @@ class ContentCompilerRepositoryImpl(
         val contentResponse = contentCompilerDataSource.read(
             input = RequestParams(requestUrl = contentUrl, headers = headers)
         )
-        return dataMapper.convert(contentResponse.data!!)
+        return dataMapper.convert(contentResponse.getOrThrow().data!!)
     }
 }

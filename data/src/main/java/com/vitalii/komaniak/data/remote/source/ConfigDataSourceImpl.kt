@@ -11,10 +11,14 @@ private val json = Json {
 }
 
 class ConfigDataSourceImpl(private val restApiClient: RestApiClient) :
-    DataSource<String, AppConfigResponse> {
+    DataSource<String, Result<AppConfigResponse>> {
 
-    override suspend fun read(configUrl: String): AppConfigResponse {
-        val jsonResponse = restApiClient.get(url = configUrl)
-        return json.decodeFromString(jsonResponse)
+    override suspend fun read(configUrl: String): Result<AppConfigResponse> {
+        return try {
+            val jsonResponse = restApiClient.get(url = configUrl)
+            Result.success(json.decodeFromString(jsonResponse))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

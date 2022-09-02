@@ -1,6 +1,7 @@
 package com.vitalii.komaniak.hacaton_app.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -10,6 +11,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
@@ -20,9 +22,12 @@ import com.vitalii.komaniak.entities.CollectionComponentModel
 import com.vitalii.komaniak.hacaton_app.AppApplication
 import com.vitalii.komaniak.hacaton_app.R
 import com.vitalii.komaniak.hacaton_app.SetupNavigationGraph
+import com.vitalii.komaniak.hacaton_app.common.TAG
 import com.vitalii.komaniak.hacaton_app.states.ViewState
 import com.vitalii.komaniak.hacaton_app.di.Injection
 import com.vitalii.komaniak.hacaton_app.screens.SplashScreen
+import com.vitalii.komaniak.hacaton_app.screens.error_page.ErrorScreen
+import com.vitalii.komaniak.hacaton_app.screens.loading.LoadingScreen
 import com.vitalii.komaniak.hacaton_app.ui.theme.AppTheme
 
 const val CONFIG_URL =
@@ -36,7 +41,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val mainViewModel = injection.getMainViewModel(owner = this)
-        mainViewModel.loadConfig(configUrl = CONFIG_URL)
+        mainViewModel.loadAppConfig(configUrl = CONFIG_URL)
 
         setContent {
             SplashScreen(splashFinished = {
@@ -47,8 +52,14 @@ class MainActivity : ComponentActivity() {
                 is ViewState.Success<*> -> {
                     MainScreen()
                 }
-                is ViewState.Loading -> {}
-                is ViewState.Error<*> -> {}
+                is ViewState.Loading -> {
+                    LoadingScreen()
+                }
+                is ViewState.Error -> {
+                    val errorMessage = (state.value as ViewState.Error).exception.message ?: stringResource(
+                        id = R.string.error_message)
+                    ErrorScreen(errorMessage = errorMessage)
+                }
             }
         }
     }

@@ -13,10 +13,14 @@ private val json = Json {
 }
 
 class ContentCompilerDataSourceImpl(private val restApiClient: RestApiClient) :
-    DataSource<RequestParams, ContentCompilerResponse> {
+    DataSource<RequestParams, Result<ContentCompilerResponse>> {
 
-    override suspend fun read(input: RequestParams): ContentCompilerResponse {
-        val jsonResponse = restApiClient.get(url = input.requestUrl)
-        return json.decodeFromString(jsonResponse)
+    override suspend fun read(input: RequestParams): Result<ContentCompilerResponse> {
+        return try {
+            val jsonResponse = restApiClient.get(url = input.requestUrl)
+            Result.success(json.decodeFromString(jsonResponse))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

@@ -11,10 +11,14 @@ private val json = Json {
 }
 
 class StylesDataSourceImpl(private val restApiClient: RestApiClient) :
-    DataSource<String, StylesResponse> {
+    DataSource<String, Result<StylesResponse>> {
 
-    override suspend fun read(stylesUrl: String): StylesResponse {
-        val stylesResponse = restApiClient.get(stylesUrl)
-        return json.decodeFromString(stylesResponse)
+    override suspend fun read(stylesUrl: String): Result<StylesResponse> {
+        return try {
+            val stylesResponse = restApiClient.get(stylesUrl)
+            Result.success(json.decodeFromString(stylesResponse))
+        }catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

@@ -5,4 +5,8 @@ interface Environment {
     fun getDeviceUUID(): String
 
     fun getCurrentTime(): Long
+
+    fun getLanguage(): String
+
+    fun getPlatform(): String
 }

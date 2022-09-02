@@ -11,4 +11,12 @@ class DeviceEnvironmentImpl : Environment {
     override fun getCurrentTime(): Long {
         return System.currentTimeMillis()
     }
+
+    override fun getLanguage(): String {
+        return "en"
+    }
+
+    override fun getPlatform(): String {
+        return "android"
+    }
 }

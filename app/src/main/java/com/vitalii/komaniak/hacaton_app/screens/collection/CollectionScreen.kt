@@ -3,12 +3,15 @@ package com.vitalii.komaniak.hacaton_app.screens.collection
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vitalii.komaniak.components.ListOfListsComponent
 import com.vitalii.komaniak.entities.CardModel
 import com.vitalii.komaniak.entities.CollectionComponentModel
+import com.vitalii.komaniak.hacaton_app.R
 import com.vitalii.komaniak.hacaton_app.states.ViewState
 import com.vitalii.komaniak.hacaton_app.di.AppModule
+import com.vitalii.komaniak.hacaton_app.screens.error_page.ErrorScreen
 import com.vitalii.komaniak.hacaton_app.screens.loading.LoadingScreen
 
 @Composable
@@ -30,8 +33,10 @@ fun CollectionScreen(
                 cardClick = cardClick
             )
         }
-        is ViewState.Error<*> -> {
-
+        is ViewState.Error -> {
+            val errorMessage = (state.value as ViewState.Error).exception.message ?: stringResource(
+                id = R.string.error_message)
+            ErrorScreen(errorMessage = errorMessage)
         }
     }
 }

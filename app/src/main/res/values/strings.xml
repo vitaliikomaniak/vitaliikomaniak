@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HacatonAmcApp</string>
+    <string name="error_message">Sorry, something went wrong. Please try again</string>
 </resources>
